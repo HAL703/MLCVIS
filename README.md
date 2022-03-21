@@ -2,6 +2,6 @@
 - Includes a machine learning model based on some algorithm
 - Will feed the ML model specific images for image segmentation
 - The ML model will implement an image segmentation procedure
-- Upload completed IS photos to a database
-- Database will somehow be linked to a website
-- Optionally, able to view and download the photos from the website
+- Upload completed IS photos to a database - using an online photo database
+- Database will be linked to a website via an API
+- Potentially, able to view and download the photos from the website
