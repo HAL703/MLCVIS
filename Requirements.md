@@ -10,7 +10,7 @@
 9. Shall have PNG/JPG conversion to SVG when ML model produces images
 10. Shall be synced with Git, commits often
 11. Shall/Will be accessible on Android
-12. Will have an algorithm running at less than O(n^2^)
+12. Will have an algorithm running at less than O(n^2)
 13. Will have image blurring
 14. Will be able to watermark images optionally (potentially custom watermarks)
 15. Will have website integration with image database
