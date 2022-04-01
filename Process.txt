@@ -1,0 +1,4 @@
+1. using K-means Algorithm for clustering data points based on 
+their similarities
+
+2. using opencv-python to implement K-means
