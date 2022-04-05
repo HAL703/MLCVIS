@@ -12,7 +12,7 @@ class Algorithms:
         imgToRead = cv2.cvtColor(imgToRead, cv2.COLOR_BGR2RGB) #converts image to an RGB "color space" pixel by pixel
         twoDVector = imgToRead.reshape((-1,3)) #images are 3D with a width, height, and depth of 3 color channels
         #"reshaping" along the image's first axis to convert into a 2D vector with 3 rgb color channels
-        #if image was (2,2,6), width, height, channels respectively, then it would be shaped into (4,6)
+        #if image was (2,2,3), width, height, channels respectively, then it would be shaped into (4,3)
         twoDVector = np.float32(twoDVector) #converts vector into a float, required for kmeans algorithm in cv2
 
         #---------------CRITERIA------------------------------

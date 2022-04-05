@@ -18,7 +18,7 @@ if __name__ == "__main__":
             elif(algoStr == 2):
                 algo.Bmask(imgStr)
             else:
-                raise Exception
+                raise Exception("Invalid integer entered, please only enter 0, 1, or 2.")
             truthValue=False
         except Exception:
             print("Invalid value entered, enter another value: ")
