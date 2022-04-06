@@ -14,7 +14,7 @@ class Algorithms:
         #"reshaping" along the image's first axis to convert into a 2D vector with 3 rgb color channels
         #if image was (2,2,3), width, height, channels respectively, then it would be shaped into (4,3)
         twoDVector = np.float32(twoDVector) #converts vector into a float, required for kmeans algorithm in cv2
-
+        
         #---------------CRITERIA------------------------------
         #defining criteria for how the K-means algo clusters pixels together
         crit = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2) 
@@ -27,8 +27,10 @@ class Algorithms:
         center = np.uint8(centers) #converting back to 8-bit pixel values
         res = center[labels.flatten()] #this constructs the segmented image by converting all pixels to the colors of the centroids (centers) after flattening the labels array
         res_image = res.reshape((imgToRead.shape))
-        mpl.imshow(res_image)
-        mpl.show()
+        #mpl.imshow(res_image)
+        #mpl.show()
+        res_image = cv2.cvtColor(res_image, cv2.COLOR_RGB2BGR) #have to convert back to BGR in order to use cv2.imwrite
+        cv2.imwrite("res.png",res_image)
 
     def Cdetect(imgStr):
         imgToRead = cv2.imread(imgStr)
@@ -47,8 +49,11 @@ class Algorithms:
         #---------------APPLICATION---------------------------
 
         res_image = cv2.bitwise_and(imgToRead, imgToRead, mask=colorMask)
-        mpl.imshow(res_image)
-        mpl.show()
+        #mpl.imshow(res_image)
+        #mpl.show()
+        res_image = cv2.cvtColor(res_image, cv2.COLOR_RGB2BGR) #have to convert back to BGR in order to use cv2.imwrite
+        cv2.imwrite("res.png",res_image)
+
     def Bmask(imgStr): #this will have to use thresholding to apply the imgFilter function
         imgToRead = cv2.imread(imgStr)
 
@@ -67,5 +72,7 @@ class Algorithms:
         threshold = TOT(grayscale) #thresholding means to create a binary image from a grayscaled image, TOT is just one of many algorithms
         thresholdedImg = grayscale < threshold
         filteredImg = imgFilter(imgToRead, thresholdedImg) #using the base image's channels and multiplying by the thresholded masks
-        mpl.imshow(filteredImg)
-        mpl.show()
+        #mpl.imshow(filteredImg)
+        #mpl.show()
+        res_image = cv2.cvtColor(filteredImg, cv2.COLOR_RGB2BGR) #have to convert back to BGR in order to use cv2.imwrite
+        cv2.imwrite("res.png",res_image)
