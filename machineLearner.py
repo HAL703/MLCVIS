@@ -1,6 +1,6 @@
-from algorithmML import Algorithms as algo
+from algorithmML import Algorithms as Algo
 if __name__ == "__main__":
-    truthValue=True
+    truthValue = True
     print("Please enter the name of an image (.png, .jpg) with its extension.")
     imgStr = str(input())
     algorithms = "k_means,color_detection,bit_masking"
@@ -8,17 +8,17 @@ if __name__ == "__main__":
     for count, algorithm in enumerate(algorithms):
         print(count, algorithm)
     while truthValue: 
-        algoStr = int(input("\nPlease enter which algorithm to utilize, enter the number beside the algorithm in the list above: "))
+        algoStr = int(input("\nEnter the number of the algorithm you want to use: "))
         try:
-            if(algoStr == 0):
-                algo.Kmeans(imgStr)
-            elif(algoStr == 1):
-                algo.Cdetect(imgStr)
-            elif(algoStr == 2):
-                algo.Bmask(imgStr)
+            if algoStr == 0:
+                Algo.Kmeans(imgStr)
+            elif algoStr == 1:
+                Algo.Cdetect(imgStr)
+            elif algoStr == 2:
+                Algo.Bmask(imgStr)
             else:
-                raise Exception("Invalid integer entered, please only enter 0, 1, or 2.")
-        except Exception:
+                raise ValueError("Invalid integer entered, please only enter 0, 1, or 2.")
+        except ValueError:
             print("Invalid value entered, enter another value: ")
             algoStr = int(input())
         contStr = input("Continue typing algorithms? (Y/N): ")
