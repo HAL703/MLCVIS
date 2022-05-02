@@ -4,12 +4,8 @@ from skimage.filters import threshold_otsu as tot  # used for the bit masking al
 
 
 class Algorithms:
-    def Kmeans(imgStr):
-        imgToRead = cv2.imread(imgStr)  # reads an image name from the given path (same directory) using cv2
-
+    def Kmeans(imgToRead):
         # ---------------PREPROCESSING-------------------------
-
-        imgToRead = cv2.cvtColor(imgToRead, cv2.COLOR_BGR2RGB)  # converts image to an RGB "color space" pixel by pixel
         twoDVector = imgToRead.reshape((-1, 3))  # images are 3D with a width, height, and depth of 3 color channels
         # "reshaping" along the image's first axis to convert into a 2D vector with 3 rgb color channels
         # if image was (2,2,3), width, height, channels respectively, then it would be shaped into (4,3)
@@ -27,17 +23,11 @@ class Algorithms:
         center = np.uint8(centers)  # converting back to 8-bit pixel values
         res = center[labels.flatten()]  # converts pixels to the colors of the centers after flattening the labels array
         res_image = res.reshape((imgToRead.shape))
-        res_image = cv2.cvtColor(res_image,
-                                 cv2.COLOR_RGB2BGR)  # have to convert back to BGR in order to use cv2.imwrite
-        cv2.imwrite("res.png", res_image)
+        Algorithms.writeImage(res_image)
 
-    def Cdetect(imgStr):
-        imgToRead = cv2.imread(imgStr)
-
+    def Cdetect(imgToRead):
         # ---------------PREPROCESSING-------------------------
-
-        rgb = cv2.cvtColor(imgToRead, cv2.COLOR_BGR2RGB)
-        hsv = cv2.cvtColor(rgb, cv2.COLOR_RGB2HSV)
+        hsv = cv2.cvtColor(imgToRead, cv2.COLOR_RGB2HSV)
 
         # ---------------CRITERIA------------------------------
 
@@ -48,17 +38,12 @@ class Algorithms:
         # ---------------APPLICATION---------------------------
 
         res_image = cv2.bitwise_and(imgToRead, imgToRead, mask=colorMask)
+        Algorithms.writeImage(res_image)
 
-        res_image = cv2.cvtColor(res_image, cv2.COLOR_RGB2BGR)  # have to convert back to BGR in order to use imwrite
-        cv2.imwrite("res.png", res_image)
-
-    def Bmask(imgStr):  # this will have to use thresholding to apply the imgFilter function
-        imgToRead = cv2.imread(imgStr)
-
+    def Bmask(imgToRead):  # this will have to use thresholding to apply the imgFilter function
         # ---------------PREPROCESSING-------------------------
-        # converting image from BGR to RGB in order to get it to grayscale
-        rgb = cv2.cvtColor(imgToRead, cv2.COLOR_BGR2RGB)
-        grayscale = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
+
+        grayscale = cv2.cvtColor(imgToRead, cv2.COLOR_RGB2GRAY)
 
         # ---------------APPLICATION---------------------------
 
@@ -72,5 +57,11 @@ class Algorithms:
         threshold = tot(grayscale)
         threImg = grayscale < threshold
         filteredImg = imgFilter(imgToRead, threImg)  # using the base image's channels, multiplying by threshold masks
-        res_image = cv2.cvtColor(filteredImg, cv2.COLOR_RGB2BGR)  # convert back to BGR in order to use imwrite
+        Algorithms.writeImage(filteredImg)
+    def readImage(imgStr, algoInt):
+        imgToRead = cv2.imread(imgStr)
+        imgToRead = cv2.cvtColor(imgToRead, cv2.COLOR_BGR2RGB) # converts image to an RGB "color space" pixel by pixel
+        return imgToRead
+    def writeImage(res_image):
+        res_image = cv2.cvtColor(res_image, cv2.COLOR_RGB2BGR)  # convert back to BGR in order to use imwrite
         cv2.imwrite("res.png", res_image)
