@@ -1,4 +1,3 @@
-# import matplotlib.pyplot as mpl
 import numpy as np
 import cv2  # this is a wrapper for OpenCV python bindings, main library
 from skimage.filters import threshold_otsu as tot  # used for the bit masking algorithm
@@ -28,8 +27,6 @@ class Algorithms:
         center = np.uint8(centers)  # converting back to 8-bit pixel values
         res = center[labels.flatten()]  # converts pixels to the colors of the centers after flattening the labels array
         res_image = res.reshape((imgToRead.shape))
-        # mpl.imshow(res_image)
-        # mpl.show()
         res_image = cv2.cvtColor(res_image,
                                  cv2.COLOR_RGB2BGR)  # have to convert back to BGR in order to use cv2.imwrite
         cv2.imwrite("res.png", res_image)
@@ -71,7 +68,7 @@ class Algorithms:
             b = img[:, :, 2] * mask
             return np.dstack([r, g, b])
 
-        # thresholding means to create a binary image from a grayscale image, TOT is just one of many algorithms
+        # thresholding means to create a binary image from a grayscale image, tot is just one of many algorithms
         threshold = tot(grayscale)
         threImg = grayscale < threshold
         filteredImg = imgFilter(imgToRead, threImg)  # using the base image's channels, multiplying by threshold masks
